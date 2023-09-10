@@ -1,0 +1,14 @@
+ls
+cd logs/
+ls
+cat error.log
+cat setup.log
+cd ../Overview/
+cat 12345.yaml
+cd ../
+pwd
+cd WebsiteTemplate/
+ls
+cat main.html
+cat main_style.css
+exit
