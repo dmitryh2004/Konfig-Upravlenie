@@ -168,6 +168,7 @@ def executecmd(root, cmd_line):
 
 
 def execute_vshell():
+    global ROOT_PATH
     parser = create_parser()
     args = parser.parse_args(sys.argv[1:])
     zip_path = args.ziploc
@@ -175,6 +176,10 @@ def execute_vshell():
         if not root:
             pass
         else:
+            ziplist = root.infolist()
+            temp = ziplist[0].filename
+            temp_split = temp.split("/")
+            ROOT_PATH = temp_split[0] + "/"
             if args.script is not None:
                 with open(args.script, "r") as script_file:
                     for cmdline in script_file.readlines():
