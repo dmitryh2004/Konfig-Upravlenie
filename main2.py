@@ -1,7 +1,15 @@
+# coding=utf-8
 import requests
 
 packages = {}
 MAX_LEVEL = 2
+
+
+def cut(string, ch):
+    ch_pos = string.find(ch)
+    if ch_pos > -1:
+        string = string[:ch_pos].strip()
+    return string
 
 
 def find_dep (name): #проверка на то, создавались ли зависимости для пакета name
@@ -26,30 +34,9 @@ def work(name, level):
         packages[name] = list()
         if depends is not None: #если поле requires_dist заполнено
             for dep in depends: #для каждого элемента в requires_dist
-                brackets_pos = dep.find('(')
-                if brackets_pos > -1:
-                    dep = dep[:brackets_pos].strip()
-                sqr_brackets_pos = dep.find('[')
-                if sqr_brackets_pos > -1:
-                    dep = dep[:sqr_brackets_pos].strip()
-                exclamation_mark_pos = dep.find('!')
-                if exclamation_mark_pos > -1:
-                    dep = dep[:exclamation_mark_pos].strip()
-                greater_pos = dep.find('>')
-                if greater_pos > -1:
-                    dep = dep[:greater_pos].strip()
-                lesser_pos = dep.find('<')
-                if lesser_pos > -1:
-                    dep = dep[:lesser_pos].strip()
-                equals_pos = dep.find('=')
-                if equals_pos > -1:
-                    dep = dep[:equals_pos].strip()
-                tilda_pos = dep.find('~')
-                if tilda_pos > -1:
-                    dep = dep[:tilda_pos].strip()
-                semi_colon_pos = dep.find(';')
-                if semi_colon_pos > -1:
-                    dep = dep[:semi_colon_pos].strip()
+                cut_chs = "([!><=~;"
+                for ch in cut_chs:
+                    dep = cut(dep, ch)
 
                 if dep not in packages[name]: # если необходимый пакет еще не добавлен в зависимости, то добавляем
                     packages[name].append(dep)
