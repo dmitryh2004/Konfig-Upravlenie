@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 b3ce0862c94905fa0b775327ee387a20bbac66b0 dmitryh2004 <dhohlinov@mail.ru> 1698578720 +0300	branch: Created from master
+b3ce0862c94905fa0b775327ee387a20bbac66b0 aaa986cdfd59296ef585d69379cb82b8bf6fe9db dmitryh2004 <dhohlinov@mail.ru> 1698578759 +0300	commit: Branch Branch1, Commit 1
+aaa986cdfd59296ef585d69379cb82b8bf6fe9db b31d4062d8bca6683113462488e9d5f20c19fc31 dmitryh2004 <dhohlinov@mail.ru> 1698578788 +0300	commit: Branch Branch1, Commit 2
+b31d4062d8bca6683113462488e9d5f20c19fc31 4bf3053efbf6d1fd51c3581eb4fb689116ddd140 dmitryh2004 <dhohlinov@mail.ru> 1698579898 +0300	commit: Branch Branch1, Commit 3
+4bf3053efbf6d1fd51c3581eb4fb689116ddd140 665086932f4988f55171637d68d1af5d104f821e dmitryh2004 <dhohlinov@mail.ru> 1698581261 +0300	merge Branch1_will_merge: Fast-forward
+665086932f4988f55171637d68d1af5d104f821e 5898c6d4e86789015108259bc0787ae688f275f7 dmitryh2004 <dhohlinov@mail.ru> 1698583296 +0300	commit: Branch Branch1, Commit 4

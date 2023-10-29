@@ -1,0 +1,27 @@
+0000000000000000000000000000000000000000 b3ce0862c94905fa0b775327ee387a20bbac66b0 dmitryh2004 <dhohlinov@mail.ru> 1698578605 +0300	commit (initial): Branch master, Commit 1
+b3ce0862c94905fa0b775327ee387a20bbac66b0 b3ce0862c94905fa0b775327ee387a20bbac66b0 dmitryh2004 <dhohlinov@mail.ru> 1698578727 +0300	checkout: moving from master to Branch1
+b3ce0862c94905fa0b775327ee387a20bbac66b0 aaa986cdfd59296ef585d69379cb82b8bf6fe9db dmitryh2004 <dhohlinov@mail.ru> 1698578759 +0300	commit: Branch Branch1, Commit 1
+aaa986cdfd59296ef585d69379cb82b8bf6fe9db b31d4062d8bca6683113462488e9d5f20c19fc31 dmitryh2004 <dhohlinov@mail.ru> 1698578788 +0300	commit: Branch Branch1, Commit 2
+b31d4062d8bca6683113462488e9d5f20c19fc31 b3ce0862c94905fa0b775327ee387a20bbac66b0 dmitryh2004 <dhohlinov@mail.ru> 1698579003 +0300	checkout: moving from Branch1 to master
+b3ce0862c94905fa0b775327ee387a20bbac66b0 3f830b3c045e6e5a9f382e21326958ca739fd07b dmitryh2004 <dhohlinov@mail.ru> 1698579030 +0300	commit: Branch master, Commit 2
+3f830b3c045e6e5a9f382e21326958ca739fd07b 3f830b3c045e6e5a9f382e21326958ca739fd07b dmitryh2004 <dhohlinov@mail.ru> 1698579778 +0300	checkout: moving from master to Branch2
+3f830b3c045e6e5a9f382e21326958ca739fd07b ccae7bab84ad71a5bf65c200a4855a10bf877851 dmitryh2004 <dhohlinov@mail.ru> 1698579807 +0300	commit: Branch Branch2, Commit 1
+ccae7bab84ad71a5bf65c200a4855a10bf877851 b31d4062d8bca6683113462488e9d5f20c19fc31 dmitryh2004 <dhohlinov@mail.ru> 1698579850 +0300	checkout: moving from Branch2 to Branch1
+b31d4062d8bca6683113462488e9d5f20c19fc31 4bf3053efbf6d1fd51c3581eb4fb689116ddd140 dmitryh2004 <dhohlinov@mail.ru> 1698579898 +0300	commit: Branch Branch1, Commit 3
+4bf3053efbf6d1fd51c3581eb4fb689116ddd140 b31d4062d8bca6683113462488e9d5f20c19fc31 dmitryh2004 <dhohlinov@mail.ru> 1698579906 +0300	checkout: moving from Branch1 to Branch3
+b31d4062d8bca6683113462488e9d5f20c19fc31 d63c5581d47c73f1ce078f56df6431527793e784 dmitryh2004 <dhohlinov@mail.ru> 1698579939 +0300	commit: Branch Branch3, Commit 1
+d63c5581d47c73f1ce078f56df6431527793e784 3f830b3c045e6e5a9f382e21326958ca739fd07b dmitryh2004 <dhohlinov@mail.ru> 1698580782 +0300	checkout: moving from Branch3 to master
+3f830b3c045e6e5a9f382e21326958ca739fd07b 409845faf21e56d900d8dcc3405410cb71dd1e0b dmitryh2004 <dhohlinov@mail.ru> 1698580813 +0300	commit: Branch master, Commit 3
+409845faf21e56d900d8dcc3405410cb71dd1e0b 6d09c1319bd591c4341f14e8ee24ac3f73284589 dmitryh2004 <dhohlinov@mail.ru> 1698580827 +0300	commit: Branch master, Commit 4
+6d09c1319bd591c4341f14e8ee24ac3f73284589 4bf3053efbf6d1fd51c3581eb4fb689116ddd140 dmitryh2004 <dhohlinov@mail.ru> 1698581149 +0300	checkout: moving from master to Branch1
+4bf3053efbf6d1fd51c3581eb4fb689116ddd140 4bf3053efbf6d1fd51c3581eb4fb689116ddd140 dmitryh2004 <dhohlinov@mail.ru> 1698581184 +0300	checkout: moving from Branch1 to Branch1_will_merge
+4bf3053efbf6d1fd51c3581eb4fb689116ddd140 665086932f4988f55171637d68d1af5d104f821e dmitryh2004 <dhohlinov@mail.ru> 1698581236 +0300	commit: Branch Branch1_will_merge, Commit 1
+665086932f4988f55171637d68d1af5d104f821e 4bf3053efbf6d1fd51c3581eb4fb689116ddd140 dmitryh2004 <dhohlinov@mail.ru> 1698581253 +0300	checkout: moving from Branch1_will_merge to Branch1
+4bf3053efbf6d1fd51c3581eb4fb689116ddd140 665086932f4988f55171637d68d1af5d104f821e dmitryh2004 <dhohlinov@mail.ru> 1698581261 +0300	merge Branch1_will_merge: Fast-forward
+665086932f4988f55171637d68d1af5d104f821e 5898c6d4e86789015108259bc0787ae688f275f7 dmitryh2004 <dhohlinov@mail.ru> 1698583296 +0300	commit: Branch Branch1, Commit 4
+5898c6d4e86789015108259bc0787ae688f275f7 ccae7bab84ad71a5bf65c200a4855a10bf877851 dmitryh2004 <dhohlinov@mail.ru> 1698583386 +0300	checkout: moving from Branch1 to branch2
+ccae7bab84ad71a5bf65c200a4855a10bf877851 0cc0073ea2902a51400a2cc58aa67446c499bc26 dmitryh2004 <dhohlinov@mail.ru> 1698583416 +0300	commit: Branch Branch2, Commit 2
+0cc0073ea2902a51400a2cc58aa67446c499bc26 cecc97ae2ee83dc1fd66d07f90f0c2eb300f3974 dmitryh2004 <dhohlinov@mail.ru> 1698583427 +0300	commit: Branch Branch2, Commit 3
+cecc97ae2ee83dc1fd66d07f90f0c2eb300f3974 d63c5581d47c73f1ce078f56df6431527793e784 dmitryh2004 <dhohlinov@mail.ru> 1698583464 +0300	checkout: moving from branch2 to branch3
+d63c5581d47c73f1ce078f56df6431527793e784 d3d7b197867e7d1fe329f8d65124279c3203c056 dmitryh2004 <dhohlinov@mail.ru> 1698583497 +0300	commit: Branch Branch3, Commit 2
+d3d7b197867e7d1fe329f8d65124279c3203c056 910ba424dffa241b97fbfe09ee8dc8f6bbae8d4e dmitryh2004 <dhohlinov@mail.ru> 1698583750 +0300	commit (merge): Merged with Branch1
