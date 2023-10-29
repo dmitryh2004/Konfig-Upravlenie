@@ -1,25 +1,10 @@
-
-
-class Branch:
-    name = ""
-    commits = []
-
-    def __init__(self, name):
-        self.name = name
-        self.commits = []
-
-    def get_name(self):
-        return self.name
-
-    def get_commits(self):
-        return self.commits
-
-    def add_commit(self, commit):
-        self.commits.append(commit)
+import os
+import re
 
 
 class Commit:
     type = ""
+    branch_name = ""
 
     branch_from = ""
     merge_from = ""
@@ -28,30 +13,16 @@ class Commit:
     commit_id = ""
     last_commit_id = ""
 
-    def __init__(self, commit_id, message):
-        self.type = "init"
+    def __init__(self, commit_id, message, type_c, last_commit_id=None, branch_from=None, merge_from=None):
+        self.type = type_c
         self.commit_id = commit_id
         self.message = message
-
-    def __init__(self, commit_id, message, last_commit_id):
-        self.type = "commit"
-        self.commit_id = commit_id
-        self.message = message
-        self.last_commit_id = last_commit_id
-
-    def __init__(self, commit_id, message, last_commit_id, branch_from):
-        self.type = "newbranch"
-        self.commit_id = commit_id
-        self.message = message
-        self.last_commit_id = last_commit_id
-        self.branch_from = branch_from
-
-    def __init__(self, commit_id, message, last_commit_id, merge_from, merge):
-        self.type = "newbranch"
-        self.commit_id = commit_id
-        self.message = message
-        self.last_commit_id = last_commit_id
-        self.merge_from = merge_from
+        if last_commit_id is not None:
+            self.last_commit_id = last_commit_id
+        if branch_from is not None:
+            self.branch_from = branch_from
+        if merge_from is not None:
+            self.merge_from = merge_from
 
     def get_type(self):
         return self.type
@@ -78,6 +49,32 @@ class Commit:
                f'\nMessage: {self.message}' \
                f'\nBranch from (if exists): {self.branch_from}' \
                f'\nMerge from (if exists): {self.merge_from}'
+
+
+class Branch:
+    name = ""
+    commits = []
+
+    def __init__(self, name):
+        self.name = name
+        self.commits = []
+
+    def get_name(self):
+        return self.name
+
+    def get_commits(self):
+        return self.commits
+
+    def add_commit(self, commit: Commit):
+        commit.branch_name = self.name
+        self.commits.append(commit)
+
+    def __str__(self):
+        res = "Branch {name = " + self.name + "\ncommits:\n"
+        for commit in self.commits:
+            res += str(commit) + "\n"
+        res += "}"
+        return res
 
 
 class GitDataProcess:
@@ -110,9 +107,36 @@ class GitDataProcess:
                     for branch_c in self.branches:
                         for commit_c in branch_c.get_commits():
                             if commit_c.get_commit_id() == commit.get_last_commit_id():
+                                if not (commit_c.branch_name == commit.branch_name) and commit_c.get_type() == "branch":
+                                    continue
                                 last_commit = commit_c
-                    
+                                node_parent = Node(last_commit)
+                                node_child = Node(commit)
+                                tb.add_node(node_parent, node_child)
+                                break
+                elif commit.get_type() == "merge":
+                    merge_from = commit.get_merge_from()
+                    for branch_b in self.branches:
+                        if branch_b.get_name() == merge_from:
+                            for commit_c in branch_b.get_commits():
+                                if commit_c.get_commit_id() == commit.get_last_commit_id():
+                                    last_commit = commit_c
+                                    node_parent = Node(last_commit)
+                                    node_child = Node(commit)
+                                    tb.add_node(node_parent, node_child)
+                                    break
+                elif commit.get_type() == "branch":
+                    pass
+                else:
+                    print(f"error: commit type {commit.get_type()} not found")
+        tb.save_tree()
 
+    def __str__(self):
+        res = "GitDataProcess{\nBranches:\n"
+        for branch in self.branches:
+            res += str(branch) + "\n"
+        res += "}"
+        return res
 
 class Node:
     parent = None
@@ -135,7 +159,7 @@ class Node:
     def show(self, level=0):
         print("\t" * level + str(self.data))
         for child in self.children:
-            child.show(level+1)
+            child.show(level + 1)
 
 
 class TreeBuilder:
@@ -154,27 +178,67 @@ class TreeBuilder:
         with open(self.path, "w", encoding="utf-8") as output:
             output.write("digraph G {\n")
             for node in self.nodes:
-                temp = ""
-                temp += node[0].get_data().get_commit_id()
+                temp = "\""
+                temp += node[0].get_data().branch_name + "\\n"
                 temp += node[0].get_data().get_message()
 
-                temp += " -> "
-                temp += node[1].get_data().get_commit_id()
+                temp += "\" -> \""
+                temp += node[1].get_data().branch_name + "\\n"
                 temp += node[1].get_data().get_message()
+                temp += "\""
 
                 output.write(temp + "\n")
             output.write("}")
+            print(f"Граф сохранен в файле {self.path}")
+
+
+def readFiles(path):
+    gd = GitDataProcess()
+    path_commits = path.replace("\\", "/") + ".git/logs/refs/heads"
+    for filename in os.listdir(path_commits):
+        with open(os.path.join(path_commits, filename), "r", encoding="utf-8") as file:
+            branch = Branch(filename)
+            for line in file:
+                commit_info = line.split()
+                last_commit_id = commit_info[0]
+                current_commit_id = commit_info[1]
+                commit_message = ""
+                commit_message_match = re.search(r": (.+)", line)
+                if commit_message_match:
+                    commit_message = commit_message_match.group(1)
+
+                commit = None
+                if "commit (initial)" in line:
+                    commit = Commit(current_commit_id, commit_message, "init")
+                elif "commit" in line:
+                    commit = Commit(current_commit_id, commit_message, "commit", last_commit_id=last_commit_id)
+                elif "merge" in line:
+                    merge_name = ""
+                    merge_name_match = re.search(r"(?<=merge) (.+)", line)
+                    if merge_name_match:
+                        merge_name = merge_name_match.group(1)
+                    merge_name = merge_name.strip().split(":")[0]
+                    commit = Commit(current_commit_id, commit_message, "merge", last_commit_id=last_commit_id, merge_from=merge_name)
+                elif "branch: Created from" in line:
+                    branch_name = ""
+                    branch_name_match = re.search(r"(?<=branch: Created from) (.+)", line)
+                    if branch_name_match:
+                        branch_name = branch_name_match.group(1)
+                    branch_name = branch_name.strip()
+                    commit = Commit(current_commit_id, commit_message, "branch", last_commit_id=last_commit_id, branch_from=branch_name)
+
+                if commit is not None:
+                    branch.add_commit(commit)
+                else:
+                    print(f"Error reading commit: {line}")
+            gd.add_branch(branch)
+    return gd
 
 
 if __name__ == "__main__":
-    test_path = ""  # enter path to repository here
-    path_commits = test_path.replace("\\", "/") + ".git/logs/refs/heads"
+    # "C:\\Users\\Дмитрий\\Desktop\\Важное\\Мирэа\\2 курс\\РКЧИР курсач\\"
+    test_path = str(input("Введите путь к локальному репозиторию -> "))
 
-    process = GitDataProcess()
+    process = readFiles(test_path)
+    process.make_tree("output.txt")
 
-    test_node1 = Node("123")
-    test_node2 = Node("1234", test_node1)
-    test_node3 = Node("12345", test_node2)
-    test_node4 = Node("123456", test_node1)
-    test_node5 = Node("1234567", test_node3)
-    test_node1.show()
